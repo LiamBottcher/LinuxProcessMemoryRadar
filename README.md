@@ -37,7 +37,7 @@ Faster than fully manual scanning, but still fundamentally blind trial
 and error — every offset is a guess confirmed by observed behavior, not
 by understanding the actual struct layout underneath it.
 
-### Phase 3 — `code/source-verified-radar/radar1.c`, `radar2.c`
+### Phase 3 — `code/open-source-memory-analysis/radar1.c`, `radar2.c`
 The turning point: AssaultCube is open source. Instead of guessing
 offsets empirically, I read the actual C++ class definitions
 (`entity.h`), understood the inheritance chain (`playerent : public
@@ -58,7 +58,7 @@ From there:
 
 ## What this demonstrates
 
-- Linux process introspection: `/proc/<pid>/maps`, `/proc/<pid>/comm`,
+- Linux process inspection: `/proc/<pid>/maps`, `/proc/<pid>/comm`,
   ELF symbol tables (`nm`), `process_vm_readv`
 - C++ ABI internals: multiple inheritance layout, vtable placement,
   struct alignment/padding, and why none of that can be reliably
@@ -75,7 +75,7 @@ From there:
 
 ```
 code/
-  source-verified-radar/     - phase 3: offsets confirmed via source + gdb ptype /o
+  open-source-memory-analysis/     - phase 3: offsets confirmed via source + gdb ptype /o
     radar1.c                  - player-only proof of concept
     radar2.c                   - full radar with bots
   pince-pointer-chains/       - phase 2: chains found via PINCE
@@ -99,3 +99,11 @@ sudo ./radar2
 
 `sudo` (or an adjusted `ptrace_scope`) is required because
 `process_vm_readv` needs the same permissions as attaching a debugger.
+
+## Platform
+
+Linux only. The project was developed and tested in a Linux environment and uses Linux-specific process and memory interfaces.
+
+## AI Assistance
+
+AI tools were used throughout development, including for generating and modifying portions of the code, explaining unfamiliar concepts, debugging, exploring implementation approaches, and helping draft and refine this README. I directed the project, performed the memory analysis and experimentation, tested the implementations, and reviewed and modified the resulting code.
